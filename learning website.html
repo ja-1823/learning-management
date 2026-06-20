@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learning Management System</title>
+
+<style>
+body{
+    font-family:Arial,sans-serif;
+    background:#f4f4f4;
+    margin:0;
+}
+header{
+    background:#007bff;
+    color:white;
+    text-align:center;
+    padding:15px;
+}
+.container{
+    width:90%;
+    max-width:900px;
+    margin:auto;
+    margin-top:20px;
+}
+.card{
+    background:white;
+    padding:20px;
+    margin-bottom:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+input,button{
+    padding:10px;
+    margin:5px;
+}
+button{
+    background:#007bff;
+    color:white;
+    border:none;
+    cursor:pointer;
+}
+button:hover{
+    background:#0056b3;
+}
+.progress{
+    width:100%;
+    background:#ddd;
+    border-radius:10px;
+}
+.progress-bar{
+    height:20px;
+    width:0%;
+    background:green;
+    border-radius:10px;
+}
+#dashboard{
+    display:none;
+}
+.certificate{
+    display:none;
+    text-align:center;
+    border:5px solid gold;
+    padding:20px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Learning Management System</h1>
+</header>
+
+<div class="container">
+
+<div class="card" id="login">
+<h2>Student Login</h2>
+<input type="text" id="name" placeholder="Enter Name">
+<button onclick="login()">Login</button>
+</div>
+
+<div id="dashboard">
+
+<div class="card">
+<h2>Welcome <span id="studentName"></span></h2>
+</div>
+
+<div class="card">
+<h2>Available Courses</h2>
+
+<p>HTML Basics</p>
+<button onclick="completeCourse()">Complete Course</button>
+
+<p>CSS Fundamentals</p>
+<button onclick="completeCourse()">Complete Course</button>
+
+<p>JavaScript Essentials</p>
+<button onclick="completeCourse()">Complete Course</button>
+
+<h3>Progress</h3>
+<div class="progress">
+<div class="progress-bar" id="progressBar"></div>
+</div>
+<p id="progressText">0%</p>
+
+</div>
+
+<div class="card">
+<h2>Quiz</h2>
+
+<p>1. HTML stands for?</p>
+
+<input type="radio" name="q1" value="correct">
+Hyper Text Markup Language<br>
+
+<input type="radio" name="q1">
+High Tech Machine Language<br>
+
+<input type="radio" name="q1">
+Home Tool Markup Language<br><br>
+
+<button onclick="checkQuiz()">Submit Quiz</button>
+
+<p id="quizResult"></p>
+</div>
+
+<div class="card certificate" id="certificate">
+<h1>Certificate of Completion</h1>
+<p>This certifies that</p>
+<h2 id="certName"></h2>
+<p>has successfully completed LMS Training.</p>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+let progress=0;
+
+function login(){
+    let name=document.getElementById("name").value;
+
+    if(name==""){
+        alert("Enter Name");
+        return;
+    }
+
+    document.getElementById("studentName").innerText=name;
+    document.getElementById("certName").innerText=name;
+
+    document.getElementById("login").style.display="none";
+    document.getElementById("dashboard").style.display="block";
+}
+
+function completeCourse(){
+
+    if(progress<100){
+        progress+=33;
+
+        if(progress>100){
+            progress=100;
+        }
+
+        document.getElementById("progressBar").style.width=progress+"%";
+        document.getElementById("progressText").innerText=progress+"%";
+
+        if(progress>=99){
+            document.getElementById("certificate").style.display="block";
+        }
+    }
+}
+
+function checkQuiz(){
+
+    let answer=document.querySelector('input[name="q1"]:checked');
+
+    if(answer && answer.value=="correct"){
+        document.getElementById("quizResult").innerHTML=
+        "<b>Correct Answer! 🎉</b>";
+    }
+    else{
+        document.getElementById("quizResult").innerHTML=
+        "<b>Wrong Answer ❌</b>";
+    }
+}
+</script>
+</body>
+</html>
